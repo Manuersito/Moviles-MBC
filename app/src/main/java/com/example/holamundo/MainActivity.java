@@ -1,8 +1,10 @@
 package com.example.holamundo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"onCreate() llamado");
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() llamado");
     }
+
 
     @Override
     protected void onResume() {
@@ -42,8 +46,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Intent intent = new Intent(MainActivity.this, Actividad_2.class);
+        //Intent para cambiar de activity
+        //Intent intent = new Intent(MainActivity.this, Actividad_2.class);
 
+        //Intent para poder abrir google
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("http://www.google.com"));
         // Iniciar la nueva actividad
         startActivity(intent);
         Log.d(TAG, "onPause() llamado");
