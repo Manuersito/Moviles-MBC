@@ -26,7 +26,7 @@ public class texto4 extends AppCompatActivity {
         });
 
         TextView texto4 = (TextView) findViewById(R.id.texto4);
-        Typeface mifuente = Typeface.createFromAsset(getAssets(),"fonts/Umbrella.ttf");
+        Typeface mifuente = Typeface.createFromAsset(getAssets(),"font/umbrella.ttf");
         texto4.setTypeface(mifuente);
     }
 
