@@ -97,6 +97,8 @@
         android:layout_marginBottom="312dp"
         android:onClick="rotar2"
         android:text="rotar2"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -108,6 +110,7 @@
         android:layout_marginBottom="240dp"
         android:onClick="rotar3"
         android:text="rotar3"
+        app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
