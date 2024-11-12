@@ -1,0 +1,5 @@
+<resources>
+    <string name="add_videojuego">Añadir coches</string>
+    <string name="app_name">Gestión de coches</string>
+    <string name="jugado">Videojuego jugado</string>
+</resources>
