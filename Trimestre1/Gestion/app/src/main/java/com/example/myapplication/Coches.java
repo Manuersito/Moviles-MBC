@@ -3,17 +3,17 @@ package com.example.myapplication;
 public class Coches {
     public String nombre;
     public String descripcion;
-    public int portadaResId; // ID del recurso de la imagen (en lugar de una URL o Image)
-    public boolean comprado;
+    public int portadaResId; // ID del recurso de la imagen
+    public boolean encontrado;
     public float valoracion;
     public String web;
     public String telefono;
 
-    public Coches(String nombre, String descripcion, int portadaResId, boolean comprado, float valoracion, String web, String telefono) {
+    public Coches(String nombre, String descripcion, int portadaResId, boolean encontrado, float valoracion, String web, String telefono) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.portadaResId = portadaResId;
-        this.comprado = comprado;
+        this.encontrado = encontrado;
         this.valoracion = valoracion;
         this.web = web;
         this.telefono = telefono;
@@ -23,7 +23,7 @@ public class Coches {
     public String getNombre() { return nombre; }
     public String getDescripcion() { return descripcion; }
     public int getPortadaResId() { return portadaResId; }
-    public boolean getComprado() { return comprado; }
+    public boolean getEncontrado() { return encontrado; }
     public float getValoracion() { return valoracion; }
     public String getWeb() { return web; }
     public String getTelefono() { return telefono; }
@@ -40,8 +40,8 @@ public class Coches {
         this.portadaResId = portadaResId;
     }
 
-    public void setComprado(boolean comprado) {
-        this.comprado = comprado;
+    public void setEncontrado(boolean encontrado) {
+        this.encontrado = encontrado;
     }
 
     public void setValoracion(float valoracion) {

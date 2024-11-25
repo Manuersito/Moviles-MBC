@@ -49,8 +49,8 @@
             android:layout_height="wrap_content" />
 
         <RadioButton
-            android:id="@+id/tvComprado"
-            android:text="Coche Comprado"
+            android:id="@+id/rbEncontrado"
+            android:text="Coche Encontrado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
