@@ -1,15 +1,22 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private ListView listView;
     private CocheAdapter adapter;
     private List<Coches> listaCoches;
 
@@ -18,17 +25,67 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar RecyclerView y lista de coches
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listView = findViewById(R.id.listView);
 
-        // Crear lista de videojuegos con imágenes
+        // Crear lista de coches
         listaCoches = new ArrayList<>();
         listaCoches.add(new Coches("Toyota Celica V", "Coche 1.6 cabrio", R.drawable.toyota_celica, true, 4.5f, "https://Toyota.com", "123456789"));
         listaCoches.add(new Coches("RAM TRX", "Pick up v8 6.2", R.drawable.ram_trx, false, 3.5f, "https://Ram.com", "987654321"));
         listaCoches.add(new Coches("Audi Sport Quattro", "Coche 2.0 traccion cuatro", R.drawable.audi_sport_quattro, false, 4.0f, "https://Audi.com", "627162399"));
 
-        adapter = new CocheAdapter(listaCoches);
-        recyclerView.setAdapter(adapter);
+        // Configurar adaptador y asignarlo al ListView
+        adapter = new CocheAdapter(this, listaCoches);
+        listView.setAdapter(adapter);
+
+        // Registrar el ListView para el menú contextual
+        registerForContextMenu(listView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        if (v.getId() == R.id.listView) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_contextual, menu);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ordenar, menu);  // Asegúrate de poner el nombre correcto del menú
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.ordenarNombre) {
+            // Ordenar por nombre
+            ordenarPorNombre();
+            return true;
+        } else if (item.getItemId() == R.id.ordenarValoracion) {
+            // Ordenar por valoración
+            ordenarPorValoracion();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void ordenarPorNombre() {
+        Collections.sort(listaCoches, (coche1, coche2) -> coche1.getNombre().compareTo(coche2.getNombre()));
+        adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
+    }
+
+    private void ordenarPorValoracion() {
+        Collections.sort(listaCoches, (coche1, coche2) -> Float.compare(coche2.getValoracion(), coche1.getValoracion()));
+        adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
+    }
+
+
+    private void eliminarCoche(int position) {
+        listaCoches.remove(position);
+        adapter.notifyDataSetChanged(); // Actualizar el adaptador
     }
 }

@@ -1,71 +1,79 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.BaseAdapter;
+import android.view.ContextMenu;
+
 import java.util.List;
 
-public class CocheAdapter extends RecyclerView.Adapter<CocheAdapter.CochesViewHolder> {
+public class CocheAdapter extends BaseAdapter {
 
-    private List<Coches> coches;
+    private final Context context;
+    private final List<Coches> coches;
 
-    public CocheAdapter(List<Coches> coches) {
+    public CocheAdapter(Context context, List<Coches> coches) {
+        this.context = context;
         this.coches = coches;
     }
 
-    @NonNull
     @Override
-    public CochesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coche_item, parent, false);
-        return new CochesViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull CochesViewHolder holder, int position) {
-        Coches coches = this.coches.get(position);
-        holder.tvNombre.setText(coches.getNombre());
-        holder.tvDescripcion.setText(coches.getDescripcion());
-        holder.ratingBar.setRating(coches.getValoracion());
-        holder.imgPortada.setImageResource(coches.getPortadaResId());
-        holder.tvTelefono.setText(coches.getTelefono());
-        holder.tvWeb.setText(coches.getWeb());
-        holder.rbEncontrado.setChecked(coches.getEncontrado());
-        holder.rbEncontrado.setOnClickListener(v -> {
-            boolean isChecked = holder.rbEncontrado.isChecked();
-            coches.setEncontrado(isChecked);
-        });
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return coches.size();
     }
 
-    static class CochesViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre;
-        TextView tvDescripcion;
-        RatingBar ratingBar;
-        ImageView imgPortada;
-        TextView tvTelefono;
-        TextView tvWeb;
-        RadioButton rbEncontrado;
+    @Override
+    public Object getItem(int position) {
+        return coches.get(position);
+    }
 
-        CochesViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvNombre = itemView.findViewById(R.id.tvNombre);
-            tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
-            ratingBar = itemView.findViewById(R.id.ratingBar);
-            imgPortada = itemView.findViewById(R.id.imgPortada);
-            tvTelefono = itemView.findViewById(R.id.tvTelefono);
-            tvWeb = itemView.findViewById(R.id.tvWeb);
-            rbEncontrado = itemView.findViewById(R.id.rbEncontrado);
-            rbEncontrado.setEnabled(false);
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.coche_item, parent, false);
         }
+
+        Coches coche = coches.get(position);
+
+        ImageView imgPortada = convertView.findViewById(R.id.imgPortada);
+        TextView tvNombre = convertView.findViewById(R.id.tvNombre);
+        RatingBar ratingBar = convertView.findViewById(R.id.ratingBar);
+        TextView tvDescripcion = convertView.findViewById(R.id.tvDescripcion);
+        TextView tvTelefono = convertView.findViewById(R.id.tvTelefono);
+        TextView tvWeb = convertView.findViewById(R.id.tvWeb);
+        RadioButton rbEncontrado = convertView.findViewById(R.id.rbEncontrado);
+        View linearLayout = convertView.findViewById(R.id.linearLayout);  // Cambié a linearLayout
+
+        imgPortada.setImageResource(coche.getPortadaResId());
+        tvNombre.setText(coche.getNombre());
+        ratingBar.setRating(coche.getValoracion());
+        tvDescripcion.setText(coche.getDescripcion());
+        tvTelefono.setText(coche.getTelefono());
+        tvWeb.setText(coche.getWeb());
+        rbEncontrado.setChecked(coche.getEncontrado());
+
+        rbEncontrado.setOnClickListener(v -> coche.setEncontrado(rbEncontrado.isChecked()));
+
+        // Agregar el Listener para el clic largo en el LinearLayout
+        linearLayout.setOnLongClickListener(v -> {
+            // Aquí puedes invocar el menú contextual
+            v.showContextMenu();
+            return true; // Devuelve true para indicar que el clic largo ha sido manejado
+        });
+
+
+        return convertView;
     }
 }
