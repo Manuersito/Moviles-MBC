@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -50,6 +51,34 @@ public class MainActivity extends AppCompatActivity {
             inflater.inflate(R.menu.menu_contextual, menu);
         }
     }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position; // Obtén la posición del ítem seleccionado
+
+        if (item.getItemId() == R.id.editar) {
+            // Aquí puedes agregar lógica para editar el elemento
+            return true;
+        } else if (item.getItemId() == R.id.borrar) {
+            // Mostrar un diálogo de confirmación antes de eliminar
+            new AlertDialog.Builder(this)
+                    .setTitle("Eliminar coche")
+                    .setMessage("¿Estás seguro de que deseas eliminar este coche?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        eliminarCoche(position); // Llama a tu método para eliminar el coche
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
