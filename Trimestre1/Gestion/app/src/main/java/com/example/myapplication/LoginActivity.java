@@ -9,14 +9,23 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.MainActivity;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private Map<String, String> usuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Inicializar el mapa con los usuarios y contraseñas
+        usuarios = new HashMap<>();
+        usuarios.put("admin", "1234");
+        usuarios.put("usuario", "usuario");
+        usuarios.put("a", "a");
 
         EditText usernameEditText = findViewById(R.id.usernameEditText);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
@@ -28,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                if (username.equals("admin") && password.equals("1234")) {
+                // Validar usuario
+                if (validarUsuario(username, password)) {
                     // Inicio de sesión exitoso
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -39,5 +49,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Método para validar el usuario
+    private boolean validarUsuario(String username, String password) {
+        return usuarios.containsKey(username) && usuarios.get(username).equals(password);
     }
 }
