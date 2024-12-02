@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Campo para el nombre del coche -->
+    <EditText
+        android:id="@+id/input_nombre"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del coche"
+        android:importantForAccessibility="yes"
+        android:inputType="text" />
+
+    <!-- Campo para la descripción del coche -->
+    <EditText
+        android:id="@+id/input_descripcion"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:importantForAccessibility="yes"
+        android:inputType="text" />
+
+    <!-- RatingBar para la valoración del coche -->
+
+    <!-- DatePicker para la fecha en que se encontró el coche -->
+    <EditText
+        android:id="@+id/input_web"
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:hint="Página web"
+        android:importantForAccessibility="yes"
+        android:inputType="textUri" />
+
+    <DatePicker
+        android:id="@+id/input_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="yes" />
+
+    <!-- Campo para la URL del coche -->
+
+    <!-- Botón para guardar los cambios -->
+    <RatingBar
+        android:id="@+id/input_valoracion"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:importantForAccessibility="yes"
+        android:numStars="5"
+        android:rating="3.0"
+        android:stepSize="0.5" />
+
+    <Button
+        android:id="@+id/btn_guardar"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="yes"
+        android:onClick="guardarCoche"
+        android:text="Guardar" />
+
+</LinearLayout>

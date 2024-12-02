@@ -27,6 +27,11 @@
             android:exported="true"
             android:launchMode="singleTask"/>
 
+        <!-- Agregar la actividad EditCocheActivity -->
+        <activity
+            android:name=".EditCocheActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

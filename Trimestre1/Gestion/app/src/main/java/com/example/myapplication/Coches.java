@@ -1,22 +1,24 @@
 package com.example.myapplication;
 
-public class Coches {
+import java.io.Serializable;
+
+public class Coches implements Serializable{
     public String nombre;
     public String descripcion;
     public int portadaResId; // ID del recurso de la imagen
     public boolean encontrado;
     public float valoracion;
     public String web;
-    public String telefono;
+    public String fechaEncontrado;
 
-    public Coches(String nombre, String descripcion, int portadaResId, boolean encontrado, float valoracion, String web, String telefono) {
+    public Coches(String nombre, String descripcion, int portadaResId, boolean encontrado, float valoracion, String web, String fechaEncontrado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.portadaResId = portadaResId;
         this.encontrado = encontrado;
         this.valoracion = valoracion;
         this.web = web;
-        this.telefono = telefono;
+        this.fechaEncontrado = fechaEncontrado;
     }
 
     // Getters y setters
@@ -26,7 +28,7 @@ public class Coches {
     public boolean getEncontrado() { return encontrado; }
     public float getValoracion() { return valoracion; }
     public String getWeb() { return web; }
-    public String getTelefono() { return telefono; }
+    public String getFechaEncontrado() { return fechaEncontrado; }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -52,7 +54,7 @@ public class Coches {
         this.web = web;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setFechaEncontrado(String fechaEncontrado) {
+        this.fechaEncontrado = fechaEncontrado;
     }
 }
