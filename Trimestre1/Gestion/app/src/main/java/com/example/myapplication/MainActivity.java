@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Registrar el ListView para el menú contextual
         registerForContextMenu(listView);
+
+        // Aquí asignamos el botón de agregar coche
+        Button btn_add = findViewById(R.id.btn_add); // Asegúrate de que el id coincida con el del botón en el layout
+        btn_add.setOnClickListener(v -> btnAddCoche()); // Llamar al método que inicia la actividad de agregar coche
     }
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -105,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void btnAddCoche(){
+        Intent intent = new Intent(this, AddCocheActivity.class);
+        startActivityForResult(intent, 1); // Inicia la actividad de edición
+    }
+
     private void ordenarPorNombre() {
         Collections.sort(listaCoches, (coche1, coche2) -> coche1.getNombre().compareTo(coche2.getNombre()));
         adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
@@ -141,18 +152,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == 1) { // Asegúrate de que el requestCode es el que usaste al iniciar la actividad
-            // Recuperar el coche editado y la posición
-            Coches cocheEditado = (Coches) data.getSerializableExtra("coche");
-            int position = data.getIntExtra("position", -1); // Recuperar la posición
-
-            if (position != -1) {
-                // Actualizar el coche en la lista
-                listaCoches.set(position, cocheEditado); // Reemplazar el coche en la lista en la posición correcta
-
-                // Notificar al adaptador que los datos han cambiado
-                adapter.notifyDataSetChanged();
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            // Comprobar si es un coche nuevo o una edición
+            if (data.hasExtra("coche") && !data.hasExtra("position")) {
+                // Este bloque es para agregar un nuevo coche
+                Coches cocheNuevo = (Coches) data.getSerializableExtra("coche");
+                listaCoches.add(cocheNuevo); // Agregar el coche a la lista
+                adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                showCustomToast("Coche agregado correctamente");
+            } else if (data.hasExtra("coche") && data.hasExtra("position")) {
+                // Este bloque es para manejar la edición de coches
+                Coches cocheEditado = (Coches) data.getSerializableExtra("coche");
+                int position = data.getIntExtra("position", -1);
+                if (position != -1) {
+                    listaCoches.set(position, cocheEditado); // Reemplazar el coche en la lista en la posición correcta
+                    adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                    showCustomToast("Coche editado correctamente");
+                }
             }
         }
     }
+
 }
+
+
+
+
+
+
+

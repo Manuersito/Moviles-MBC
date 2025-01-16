@@ -1,63 +1,67 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#120909">
 
-    <!-- Campo para el nombre del coche -->
     <EditText
         android:id="@+id/input_nombre"
-        android:layout_width="384dp"
-        android:layout_height="wrap_content"
+        android:layout_width="377dp"
+        android:layout_height="37dp"
+        android:background="#333333"
         android:hint="Nombre del coche"
         android:importantForAccessibility="yes"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888" />
 
-    <!-- Campo para la descripción del coche -->
     <EditText
         android:id="@+id/input_descripcion"
-        android:layout_width="384dp"
-        android:layout_height="wrap_content"
+        android:layout_width="377dp"
+        android:layout_height="40dp"
+        android:background="#333333"
         android:hint="Descripción"
         android:importantForAccessibility="yes"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888" />
 
-    <!-- RatingBar para la valoración del coche -->
-
-    <!-- DatePicker para la fecha en que se encontró el coche -->
     <EditText
         android:id="@+id/input_web"
-        android:layout_width="385dp"
-        android:layout_height="wrap_content"
+        android:layout_width="377dp"
+        android:layout_height="38dp"
+        android:background="#333333"
         android:hint="Página web"
         android:importantForAccessibility="yes"
-        android:inputType="textUri" />
+        android:inputType="textUri"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888" />
 
     <DatePicker
         android:id="@+id/input_fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:importantForAccessibility="yes" />
 
-    <!-- Campo para la URL del coche -->
-
-    <!-- Botón para guardar los cambios -->
     <RatingBar
         android:id="@+id/input_valoracion"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:importantForAccessibility="yes"
         android:numStars="5"
+        android:progressDrawable="@drawable/custom_ratingbar"
         android:rating="3.0"
-        android:stepSize="0.5" />
+        android:stepSize="1" />
 
     <Button
         android:id="@+id/btn_guardar"
-        android:layout_width="241dp"
-        android:layout_height="wrap_content"
+        android:layout_width="251dp"
+        android:layout_height="66dp"
+        android:background="#6200EE"
         android:importantForAccessibility="yes"
         android:onClick="guardarCoche"
-        android:text="Guardar" />
-
+        android:text="Guardar"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

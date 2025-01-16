@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42028bb8-670e-41c5-9caf-6485ed80f80f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/migrations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/java/com/example/myapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/java/com/example/myapplication/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/coche_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/coche_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/edit_coche.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/layout/edit_coche.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/menu/menu_ordenar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/menu/menu_ordenar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Trimestre1/Gestion/app/src/main/res/values/themes.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,10 +32,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2n3svEMZsNrDawZO8O6Ppar5xbj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,7 +50,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Manuersin/Documents/Moviles-MBC",
+    "last_opened_file_path": "D:/Manuersin/Documents/Moviles-MBC/Trimestre2/Propuesta_4",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2"

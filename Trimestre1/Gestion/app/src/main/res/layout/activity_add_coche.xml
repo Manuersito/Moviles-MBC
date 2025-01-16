@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#120909">
+
+    <!-- Campo para el nombre del coche -->
+    <EditText
+        android:id="@+id/etNombreCoche"
+        android:layout_width="377dp"
+        android:layout_height="37dp"
+        android:background="#333333"
+        android:hint="Nombre del coche"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888"
+        android:inputType="text" />
+
+    <!-- Campo para la descripción -->
+    <EditText
+        android:id="@+id/etDescripcionCoche"
+        android:layout_width="377dp"
+        android:layout_height="40dp"
+        android:background="#333333"
+        android:hint="Descripción del coche"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#888888"
+        android:inputType="text" />
+
+    <!-- ImageView para seleccionar una imagen del coche -->
+    <ImageView
+        android:id="@+id/imgCoche"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/bmw"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop" />
+
+    <!-- RatingBar para la valoración -->
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="0"
+        android:progressDrawable="@drawable/custom_ratingbar" />
+
+    <!-- DatePicker para la fecha -->
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:background="#ffffff"
+    android:textColor="#FFFFFF"
+    android:calendarTextColor="#FFFFFF" />
+
+
+    <!-- Botón para añadir el coche -->
+    <Button
+        android:id="@+id/btnAddCoche"
+        android:layout_width="251dp"
+        android:layout_height="66dp"
+        android:background="#6200EE"
+        android:text="Añadir Coche"
+        android:textColor="#FFFFFF"
+        android:importantForAccessibility="yes"
+        android:onClick="guardarCoche" />
+</LinearLayout>
