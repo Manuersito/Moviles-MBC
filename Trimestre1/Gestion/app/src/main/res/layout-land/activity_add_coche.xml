@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/etNombreCoche"
-        android:layout_width="377dp"
-        android:layout_height="37dp"
+        android:layout_width="402dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:background="#333333"
         android:hint="Nombre del coche"
@@ -22,9 +22,9 @@
 
     <EditText
         android:id="@+id/etDescripcionCoche"
-        android:layout_width="377dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="404dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="52dp"
         android:background="#333333"
         android:hint="Descripción del coche"
         android:inputType="text"
