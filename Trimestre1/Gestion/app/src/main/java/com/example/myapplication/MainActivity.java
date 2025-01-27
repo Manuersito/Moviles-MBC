@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -16,6 +17,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
             // Ordenar por valoración
             ordenarPorValoracion();
             return true;
-        } else {
+        } else if (item.getItemId() == R.id.menu_info) {
+            showInfoDialog(this);
+            return true;
+        }else{
             return super.onOptionsItemSelected(item);
         }
     }
@@ -147,6 +156,40 @@ public class MainActivity extends AppCompatActivity {
         toast.setView(layout);
         toast.show();
     }
+
+    private String readTextFile(int resourceId, Context context) {
+        InputStream inputStream = context.getResources().openRawResource(resourceId);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+
+    //info app
+    private void showInfoDialog(Context context) {
+        String infoText = readTextFile(R.raw.info_uso, context);
+
+        new AlertDialog.Builder(context)
+                .setTitle("Información de la App")
+                .setMessage(infoText)
+                .setPositiveButton("Cerrar", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

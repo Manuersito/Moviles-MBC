@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,12 +33,19 @@ public class LoginActivity extends AppCompatActivity {
         EditText passwordEditText = findViewById(R.id.passwordEditText);
         Button loginButton = findViewById(R.id.loginButton);
 
+        SharedPreferences prefe=getSharedPreferences("datos", Context.MODE_PRIVATE);
+        usernameEditText.setText(prefe.getString("usuario",""));
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
+                SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=preferencias.edit();
+                editor.putString("usuario", usernameEditText.getText().toString());
+                editor.commit();
+                finish();
                 // Validar usuario
                 if (validarUsuario(username, password)) {
                     // Inicio de sesión exitoso

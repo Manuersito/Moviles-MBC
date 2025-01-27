@@ -1,0 +1,5 @@
+Bienvenido a la aplicación de gestión de coches.
+Con esta app puedes:
+- Añadir coches a tu inventario.
+- Consultar información detallada de cada coche.
+- Gestionar imágenes asociadas a los coches.
