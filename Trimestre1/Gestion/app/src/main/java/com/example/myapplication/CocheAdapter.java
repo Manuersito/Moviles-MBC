@@ -4,18 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.BaseAdapter;
+
 
 import java.util.List;
 
 public class CocheAdapter extends BaseAdapter {
 
     private final Context context;
-    private final List<Coches> coches;
+    private List<Coches> coches;  // Cambié a una variable de tipo List
 
     public CocheAdapter(Context context, List<Coches> coches) {
         this.context = context;
@@ -52,7 +53,7 @@ public class CocheAdapter extends BaseAdapter {
         TextView tvTelefono = convertView.findViewById(R.id.tvTelefono);
         TextView tvWeb = convertView.findViewById(R.id.tvWeb);
         RadioButton rbEncontrado = convertView.findViewById(R.id.rbEncontrado);
-        View linearLayout = convertView.findViewById(R.id.linearLayout);  // Cambié a linearLayout
+        View linearLayout = convertView.findViewById(R.id.linearLayout);
 
         imgPortada.setImageResource(coche.getPortadaResId());
         tvNombre.setText(coche.getNombre());
@@ -66,12 +67,18 @@ public class CocheAdapter extends BaseAdapter {
 
         // Agregar el Listener para el clic largo en el LinearLayout
         linearLayout.setOnLongClickListener(v -> {
-            // Aquí puedes invocar el menú contextual
             v.showContextMenu();
-            return true; // Devuelve true para indicar que el clic largo ha sido manejado
+            return true;
         });
-
 
         return convertView;
     }
+
+    // Método para actualizar la lista de coches en el adaptador
+    public void actualizarLista(List<Coches> nuevosCoches) {
+        this.coches = nuevosCoches;
+        notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado
+    }
+
+
 }

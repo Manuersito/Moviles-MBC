@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,7 +22,7 @@ public class AddCocheActivity extends Activity {
     private DatePicker datePicker;
     private ImageView imgCoche;
     private Button btnAddCoche;
-    private ArrayList<Coches> listaCoches; // Esta lista viene de tu actividad principal
+    private DBHelper dbHelper; // Agregamos el DBHelper para manejar la base de datos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +37,10 @@ public class AddCocheActivity extends Activity {
         imgCoche = findViewById(R.id.imgCoche);
         btnAddCoche = findViewById(R.id.btnAddCoche);
 
-        // Cargar la lista de coches (esto puede venir de tu actividad principal)
-        listaCoches = new ArrayList<>(); // O obtenerla de tu actividad principal si es necesario.
+        // Inicializamos DBHelper
+        dbHelper = new DBHelper(this);
 
-        // Seteamos el comportamiento del botón
+        // En AddCocheActivity
         btnAddCoche.setOnClickListener(v -> {
             // Obtener los datos del formulario
             String nombre = etNombreCoche.getText().toString();
@@ -62,13 +60,24 @@ public class AddCocheActivity extends Activity {
             // Crear el coche nuevo
             Coches nuevoCoche = new Coches(nombre, descripcion, R.drawable.bmw, false, valoracion, "https://example.com", fechaString);
 
-            // Devolver el coche creado a la actividad principal
-            // En AddCocheActivity, después de agregar el coche, devuelves el coche a MainActivity.
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("coche", nuevoCoche);  // cocheNuevo es el coche que se acaba de agregar
-            setResult(RESULT_OK, resultIntent);
-            finish();
+            // Insertar el coche en la base de datos
+            long id = dbHelper.addCoche(nuevoCoche);
 
+            if (id != -1) {
+                // Coche insertado con éxito, mostrar mensaje y regresar
+                Toast.makeText(AddCocheActivity.this, "Coche agregado con éxito", Toast.LENGTH_SHORT).show();
+
+                // Pasar el coche agregado a la actividad principal
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("coche", nuevoCoche);  // Pasar el coche recién creado
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            } else {
+                // Error al insertar el coche
+                Toast.makeText(AddCocheActivity.this, "Error al agregar coche", Toast.LENGTH_SHORT).show();
+            }
         });
+
+
     }
 }

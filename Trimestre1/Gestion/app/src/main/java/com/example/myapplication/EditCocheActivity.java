@@ -18,14 +18,15 @@ public class EditCocheActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private Button btnGuardar;
     private Coches coche;
-    private int position;
+    private int cocheId; // Usamos ID para obtener el coche de la base de datos
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_coche);
 
-        // Inicializa los componentes
+        // Inicializamos los componentes
         editNombre = findViewById(R.id.input_nombre);
         editDescripcion = findViewById(R.id.input_descripcion);
         editWeb = findViewById(R.id.input_web);
@@ -33,9 +34,25 @@ public class EditCocheActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.input_valoracion);
         btnGuardar = findViewById(R.id.btn_guardar);
 
-        // Recuperar el coche y la posición desde el Intent
-        coche = (Coches) getIntent().getSerializableExtra("coche");
-        position = getIntent().getIntExtra("position", -1);
+        // Inicializamos DBHelper
+        dbHelper = new DBHelper(this);
+
+        cocheId = getIntent().getIntExtra("coche_id", -1);  // Recupera el ID del coche
+        if (cocheId == -1) {
+            Toast.makeText(EditCocheActivity.this, "ID de coche inválido", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+
+        // Obtener el coche desde la base de datos usando el ID
+        coche = dbHelper.getCocheById(cocheId);
+
+        if (coche == null) {
+            Toast.makeText(EditCocheActivity.this, "Coche no encontrado", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         // Rellenar los campos con los datos del coche
         editNombre.setText(coche.getNombre());
@@ -51,7 +68,7 @@ public class EditCocheActivity extends AppCompatActivity {
 
         ratingBar.setRating(coche.getValoracion());
 
-        // Guardar los cambios
+        // Guardar los cambios en la base de datos
         btnGuardar.setOnClickListener(v -> {
             coche.setNombre(editNombre.getText().toString());
             coche.setDescripcion(editDescripcion.getText().toString());
@@ -65,12 +82,20 @@ public class EditCocheActivity extends AppCompatActivity {
 
             coche.setValoracion(ratingBar.getRating());
 
-            // Crear el Intent de resultado
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("coche", coche); // Pasa el coche editado
-            resultIntent.putExtra("position", position); // Pasa la posición
-            setResult(RESULT_OK, resultIntent); // Establece el resultado de la actividad
-            finish(); // Cierra la actividad
+            // Actualizar el coche en la base de datos
+            int success = dbHelper.updateCoche(coche);
+
+            if (success == 1 ) {
+                // Coche actualizado con éxito
+                Toast.makeText(EditCocheActivity.this, "Coche actualizado con éxito", Toast.LENGTH_SHORT).show();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("coche_id", cocheId); // Pasar el ID del coche actualizado
+                setResult(RESULT_OK, resultIntent);
+                finish(); // Cierra la actividad
+            } else {
+                // Error al actualizar el coche
+                Toast.makeText(EditCocheActivity.this, "Error al actualizar coche", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

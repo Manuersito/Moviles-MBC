@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +23,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private CocheAdapter adapter;
     private List<Coches> listaCoches;
+    private DBHelper dbHelper;  // Base de datos helper
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
 
-        // Crear lista de coches
-        listaCoches = new ArrayList<>();
-        listaCoches.add(new Coches("Toyota Celica V", "Coche 1.6 cabrio", R.drawable.toyota_celica, true, 4.5f, "https://Toyota.com", "2023-07-15"));
-        listaCoches.add(new Coches("RAM TRX", "Pick up v8 6.2", R.drawable.ram_trx, false, 3.5f, "https://Ram.com", "2024-02-28"));
-        listaCoches.add(new Coches("Audi Sport Quattro", "Coche 2.0 traccion cuatro", R.drawable.audi_sport_quattro, false, 4.0f, "https://Audi.com", "2025-12-05"));
+        // Inicializar el helper de base de datos
+        dbHelper = new DBHelper(this);
+
+        // Obtener los coches desde la base de datos
+        listaCoches = dbHelper.getAllCoches();  // Obtiene todos los coches desde la base de datos
 
         // Configurar adaptador y asignarlo al ListView
         adapter = new CocheAdapter(this, listaCoches);
@@ -52,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
         // Registrar el ListView para el menú contextual
         registerForContextMenu(listView);
 
-        // Aquí asignamos el botón de agregar coche
-        Button btn_add = findViewById(R.id.btn_add); // Asegúrate de que el id coincida con el del botón en el layout
-        btn_add.setOnClickListener(v -> btnAddCoche()); // Llamar al método que inicia la actividad de agregar coche
+        // Configurar el botón de agregar coche
+        Button btn_add = findViewById(R.id.btn_add);  // Asegúrate de que el id coincida con el del botón en el layout
+        btn_add.setOnClickListener(v -> btnAddCoche());  // Llamar al método que inicia la actividad de agregar coche
     }
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -71,13 +71,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int position = info.position; // Obtén la posición del ítem seleccionado
+        int position = info.position;  // Obtén la posición del ítem seleccionado
 
         if (item.getItemId() == R.id.editar) {
+            // Dentro de MainActivity
+            int cocheId = listaCoches.get(position).getId();
+            Log.d("EditCoche", "Coche ID: " + cocheId);
             Intent intent = new Intent(this, EditCocheActivity.class);
-            intent.putExtra("coche", listaCoches.get(position)); // Pasa el coche
-            intent.putExtra("position", position); // Pasa la posición
-            startActivityForResult(intent, 1); // Inicia la actividad de edición
+            intent.putExtra("coche_id", listaCoches.get(position).getId());  // Pasa solo el ID
+            startActivityForResult(intent, 1);
+
             return true;
         } else if (item.getItemId() == R.id.borrar) {
             // Mostrar un diálogo de confirmación antes de eliminar
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("Eliminar coche")
                     .setMessage("¿Estás seguro de que deseas eliminar este coche?")
                     .setPositiveButton("Sí", (dialog, which) -> {
-                        eliminarCoche(position); // Llama a tu método para eliminar el coche
+                        eliminarCoche(position);  // Llama a tu método para eliminar el coche
                         showCustomToast("Coche eliminado con éxito");
                     })
                     .setNegativeButton("No", null)
@@ -115,36 +118,39 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.menu_info) {
             showInfoDialog(this);
             return true;
-        }else{
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
-    public void btnAddCoche(){
+    public void btnAddCoche() {
         Intent intent = new Intent(this, AddCocheActivity.class);
-        startActivityForResult(intent, 1); // Inicia la actividad de edición
+        startActivityForResult(intent, 1);  // Inicia la actividad de edición
     }
 
     private void ordenarPorNombre() {
         Collections.sort(listaCoches, (coche1, coche2) -> coche1.getNombre().compareTo(coche2.getNombre()));
-        adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
+        adapter.notifyDataSetChanged();  // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
     }
 
     private void ordenarPorValoracion() {
         Collections.sort(listaCoches, (coche1, coche2) -> Float.compare(coche2.getValoracion(), coche1.getValoracion()));
-        adapter.notifyDataSetChanged(); // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
+        adapter.notifyDataSetChanged();  // Notificar que los datos han cambiado para que se actualice el ListView o el Adapter
     }
 
     private void eliminarCoche(int position) {
-        listaCoches.remove(position);
-        adapter.notifyDataSetChanged(); // Actualizar el adaptador
+        // Eliminar coche de la base de datos
+        Coches cocheAEliminar = listaCoches.get(position);
+        dbHelper.deleteCoche(cocheAEliminar.getId());  // Eliminar del SQLite
+        listaCoches.remove(position);  // Eliminar de la lista en memoria
+        adapter.notifyDataSetChanged();  // Actualizar el adaptador
     }
 
     // Método para mostrar el Toast personalizado
     private void showCustomToast(String message) {
         // Inflar el layout personalizado
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast, null); // Usamos null como contenedor
+        View layout = inflater.inflate(R.layout.custom_toast, null);  // Usamos null como contenedor
 
         // Configurar el texto del Toast
         TextView text = layout.findViewById(R.id.toast_message);
@@ -178,8 +184,7 @@ public class MainActivity extends AppCompatActivity {
         return stringBuilder.toString();
     }
 
-
-    //info app
+    // info app
     private void showInfoDialog(Context context) {
         String infoText = readTextFile(R.raw.info_uso, context);
 
@@ -190,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -200,27 +204,21 @@ public class MainActivity extends AppCompatActivity {
             if (data.hasExtra("coche") && !data.hasExtra("position")) {
                 // Este bloque es para agregar un nuevo coche
                 Coches cocheNuevo = (Coches) data.getSerializableExtra("coche");
-                listaCoches.add(cocheNuevo); // Agregar el coche a la lista
-                adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                dbHelper.addCoche(cocheNuevo);  // Agregar el coche a la base de datos
+                listaCoches.add(cocheNuevo);  // Agregar el coche a la lista en memoria
+                adapter.notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado
                 showCustomToast("Coche agregado correctamente");
             } else if (data.hasExtra("coche") && data.hasExtra("position")) {
                 // Este bloque es para manejar la edición de coches
                 Coches cocheEditado = (Coches) data.getSerializableExtra("coche");
                 int position = data.getIntExtra("position", -1);
                 if (position != -1) {
-                    listaCoches.set(position, cocheEditado); // Reemplazar el coche en la lista en la posición correcta
-                    adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                    listaCoches.set(position, cocheEditado);  // Reemplazar el coche en la lista en la posición correcta
+                    dbHelper.updateCoche(cocheEditado);  // Actualizar el coche en la base de datos
+                    adapter.notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado
                     showCustomToast("Coche editado correctamente");
                 }
             }
         }
     }
-
 }
-
-
-
-
-
-
-
