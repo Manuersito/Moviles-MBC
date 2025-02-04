@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+
+    <ImageButton
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/micro"
+        android:contentDescription="Iniciar Grabación"
+        android:background="@null"
+        android:padding="8dp"/>
+
+    <ImageButton
+        android:id="@+id/btnStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/stop"
+        android:contentDescription="Detener Grabación"
+        android:background="@null"
+        android:padding="8dp"
+        android:enabled="false"/>
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play"
+        android:contentDescription="Reproducir Última Grabación"
+        android:background="@null"
+        android:padding="8dp"
+        android:enabled="false"/>
+
+
+</LinearLayout>
