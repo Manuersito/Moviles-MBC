@@ -10,13 +10,15 @@ import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 public class CocheAdapter extends BaseAdapter {
 
     private final Context context;
-    private List<Coches> coches;  // Cambié a una variable de tipo List
+    private List<Coches> coches;
 
     public CocheAdapter(Context context, List<Coches> coches) {
         this.context = context;
@@ -55,7 +57,18 @@ public class CocheAdapter extends BaseAdapter {
         RadioButton rbEncontrado = convertView.findViewById(R.id.rbEncontrado);
         View linearLayout = convertView.findViewById(R.id.linearLayout);
 
-        imgPortada.setImageResource(coche.getPortadaResId());
+        // Verificar y cargar la imagen usando Picasso para una imagen local
+        if (coche.getFotoUrl() != null && !coche.getFotoUrl().isEmpty()) {
+            File imgFile = new File(coche.getFotoUrl());
+            if (imgFile.exists()) {
+                Picasso.get().load(imgFile).into(imgPortada);
+            } else {
+                imgPortada.setImageResource(R.drawable.toyota_celica); // Imagen por defecto si no se encuentra la foto
+            }
+        } else {
+            imgPortada.setImageResource(R.drawable.toyota_celica); // Imagen por defecto si no hay foto
+        }
+
         tvNombre.setText(coche.getNombre());
         ratingBar.setRating(coche.getValoracion());
         tvDescripcion.setText(coche.getDescripcion());
@@ -79,6 +92,4 @@ public class CocheAdapter extends BaseAdapter {
         this.coches = nuevosCoches;
         notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado
     }
-
-
 }

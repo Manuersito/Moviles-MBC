@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NOMBRE = "nombre";
     private static final String COLUMN_DESCRIPCION = "descripcion";
-    private static final String COLUMN_PORTADA_RES_ID = "portadaResId";
+    private static final String COLUMN_FOTO_URL = "fotoUrl";  // Cambiado de portadaResId a fotoUrl
     private static final String COLUMN_ENCONTRADO = "encontrado";
     private static final String COLUMN_VALORACION = "valoracion";
     private static final String COLUMN_WEB = "web";
@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NOMBRE + " TEXT, "
                 + COLUMN_DESCRIPCION + " TEXT, "
-                + COLUMN_PORTADA_RES_ID + " INTEGER, "
+                + COLUMN_FOTO_URL + " TEXT, "  // Usamos TEXT para la URL de la foto
                 + COLUMN_ENCONTRADO + " INTEGER, "
                 + COLUMN_VALORACION + " REAL, "
                 + COLUMN_WEB + " TEXT, "
@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COLUMN_NOMBRE, coche.getNombre());
             values.put(COLUMN_DESCRIPCION, coche.getDescripcion());
-            values.put(COLUMN_PORTADA_RES_ID, coche.getPortadaResId());
+            values.put(COLUMN_FOTO_URL, coche.getFotoUrl());  // Almacenamos la URL de la foto
             values.put(COLUMN_ENCONTRADO, booleanToInt(coche.getEncontrado()));
             values.put(COLUMN_VALORACION, coche.getValoracion());
             values.put(COLUMN_WEB, coche.getWeb());
@@ -78,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
                             cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPCION)),
-                            cursor.getInt(cursor.getColumnIndex(COLUMN_PORTADA_RES_ID)),
+                            cursor.getString(cursor.getColumnIndex(COLUMN_FOTO_URL)),  // Obtenemos la URL de la foto
                             cursor.getInt(cursor.getColumnIndex(COLUMN_ENCONTRADO)) == 1,
                             cursor.getFloat(cursor.getColumnIndex(COLUMN_VALORACION)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_WEB)),
@@ -106,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPCION)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_PORTADA_RES_ID)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_FOTO_URL)),  // Obtenemos la URL de la foto
                         cursor.getInt(cursor.getColumnIndex(COLUMN_ENCONTRADO)) == 1,
                         cursor.getFloat(cursor.getColumnIndex(COLUMN_VALORACION)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_WEB)),
@@ -127,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COLUMN_NOMBRE, coche.getNombre());
             values.put(COLUMN_DESCRIPCION, coche.getDescripcion());
-            values.put(COLUMN_PORTADA_RES_ID, coche.getPortadaResId());
+            values.put(COLUMN_FOTO_URL, coche.getFotoUrl());  // Almacenamos la URL de la foto
             values.put(COLUMN_ENCONTRADO, booleanToInt(coche.getEncontrado()));
             values.put(COLUMN_VALORACION, coche.getValoracion());
             values.put(COLUMN_WEB, coche.getWeb());

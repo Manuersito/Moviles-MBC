@@ -9,7 +9,7 @@
     <!-- Campo para el nombre del coche -->
     <EditText
         android:id="@+id/etNombreCoche"
-        android:layout_width="377dp"
+        android:layout_width="match_parent"
         android:layout_height="37dp"
         android:background="#333333"
         android:hint="Nombre del coche"
@@ -20,7 +20,7 @@
     <!-- Campo para la descripción -->
     <EditText
         android:id="@+id/etDescripcionCoche"
-        android:layout_width="377dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#333333"
         android:hint="Descripción del coche"
@@ -28,14 +28,24 @@
         android:textColorHint="#888888"
         android:inputType="text" />
 
-    <!-- ImageView para seleccionar una imagen del coche -->
+    <!-- ImageView para mostrar la imagen del coche -->
     <ImageView
         android:id="@+id/imgCoche"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/bmw"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop" />
+    android:layout_marginTop="16dp"
+    android:scaleType="centerCrop" />
+
+    <!-- Botón para abrir la cámara y tomar una foto -->
+    <Button
+        android:id="@+id/btnTomarFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tomar Foto"
+        android:background="#6200EE"
+        android:textColor="#FFFFFF"
+        android:onClick="abrirCamara" />
 
     <!-- RatingBar para la valoración -->
     <RatingBar
@@ -55,14 +65,13 @@
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         android:background="#ffffff"
-    android:textColor="#FFFFFF"
-    android:calendarTextColor="#FFFFFF" />
-
+        android:textColor="#FFFFFF"
+        android:calendarTextColor="#FFFFFF" />
 
     <!-- Botón para añadir el coche -->
     <Button
         android:id="@+id/btnAddCoche"
-        android:layout_width="251dp"
+        android:layout_width="match_parent"
         android:layout_height="66dp"
         android:background="#6200EE"
         android:text="Añadir Coche"

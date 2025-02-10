@@ -6,18 +6,18 @@ public class Coches implements Serializable {
     private int id;
     public String nombre;
     public String descripcion;
-    public int portadaResId;
+    public String fotoUrl;  // Usamos String para la URL o ruta de la foto
     public boolean encontrado;
     public float valoracion;
     public String web;
     public String fechaEncontrado;
 
-    // Constructor
-    public Coches(int id, String nombre, String descripcion, int portadaResId, boolean encontrado, float valoracion, String web, String fechaEncontrado) {
+    // Constructor con todos los parámetros
+    public Coches(int id, String nombre, String descripcion, String fotoUrl, boolean encontrado, float valoracion, String web, String fechaEncontrado) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.portadaResId = portadaResId;
+        this.fotoUrl = fotoUrl;  // Guardamos la URL o ruta de la foto
         this.encontrado = encontrado;
         this.valoracion = valoracion;
         this.web = web;
@@ -25,20 +25,19 @@ public class Coches implements Serializable {
     }
 
     // Constructor sin id (para insertar en la base de datos)
-    public Coches(String nombre, String descripcion, int portadaResId, boolean encontrado, float valoracion, String web, String fechaEncontrado) {
+    public Coches(String nombre, String descripcion, String fotoUrl, boolean encontrado, float valoracion, String web, String fechaEncontrado) {
         this.id = -1;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.portadaResId = portadaResId;
+        this.fotoUrl = fotoUrl;  // Guardamos la URL o ruta de la foto
         this.encontrado = encontrado;
         this.valoracion = valoracion;
         this.web = web;
         this.fechaEncontrado = fechaEncontrado;
     }
 
-    public Coches() {
-
-    }
+    // Constructor vacío
+    public Coches() {}
 
     // Getters y setters
     public int getId() {
@@ -65,12 +64,12 @@ public class Coches implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getPortadaResId() {
-        return portadaResId;
+    public String getFotoUrl() {
+        return fotoUrl;
     }
 
-    public void setPortadaResId(int portadaResId) {
-        this.portadaResId = portadaResId;
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 
     public boolean getEncontrado() {
