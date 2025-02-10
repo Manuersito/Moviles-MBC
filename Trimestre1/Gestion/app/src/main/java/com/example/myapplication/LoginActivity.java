@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +18,14 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private Map<String, String> usuarios;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mediaPlayer = MediaPlayer.create(this,R.raw.login);
+        mediaPlayer.start();
         // Inicializar el mapa con los usuarios y contraseñas
         usuarios = new HashMap<>();
         usuarios.put("admin", "1234");
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 // Validar usuario
                 if (validarUsuario(username, password)) {
+                    mediaPlayer.stop();
                     // Inicio de sesión exitoso
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -63,5 +67,14 @@ public class LoginActivity extends AppCompatActivity {
     // Método para validar el usuario
     private boolean validarUsuario(String username, String password) {
         return usuarios.containsKey(username) && usuarios.get(username).equals(password);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mediaPlayer!=null){
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }
